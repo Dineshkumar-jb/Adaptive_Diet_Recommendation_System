@@ -5,9 +5,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Architecture: 100% Client-Side](https://img.shields.io/badge/Architecture-100%25%20Client--Side-brightgreen.svg)]()
 [![Dataset: USDA & ICMR-NIN](https://img.shields.io/badge/Dataset-USDA%20%26%20ICMR--NIN-orange.svg)]()
+[![Live Website](https://img.shields.io/badge/Live%20Website-Click%20to%20Launch-brightgreen?style=flat&logo=googlechrome)](https://dineshkumar-jb.github.io/Adaptive_Diet_Recommendation_System/)
 
 > **Under the Guidance of:** Vignashwari  
 > **Done by:** Dinesh Kumar J B &middot; Bharath Vikraman &middot; Sanjay K  
+
+🌐 **Public Live Website**: [https://dineshkumar-jb.github.io/Adaptive_Diet_Recommendation_System/](https://dineshkumar-jb.github.io/Adaptive_Diet_Recommendation_System/)  
+📊 **Project Presentation Slides**: [https://dineshkumar-jb.github.io/Adaptive_Diet_Recommendation_System/docs/presentation_viewer.html](https://dineshkumar-jb.github.io/Adaptive_Diet_Recommendation_System/docs/presentation_viewer.html)
 
 ---
 
@@ -119,10 +123,14 @@ An offline and live benchmarking suite was conducted comparing the **Original Gi
 
 Because this is a **100% Client-Side Web Application**, it runs directly in any modern web browser:
 
-### Option 1: Direct Browser Launch (Zero Installation)
+### Option 1: Instant Online Live Website (Zero Installation)
+Access the application directly from anywhere in the world on any browser or mobile device:  
+👉 **[https://dineshkumar-jb.github.io/Adaptive_Diet_Recommendation_System/](https://dineshkumar-jb.github.io/Adaptive_Diet_Recommendation_System/)**
+
+### Option 2: Local Browser Launch
 Simply open [`index.html`](index.html) in Google Chrome, Microsoft Edge, Firefox, or Safari.
 
-### Option 2: Using Any Local Static Server
+### Option 3: Using Any Local Static Server
 ```bash
 # If using Python (if installed):
 python -m http.server 8000
