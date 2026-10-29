@@ -1,0 +1,22 @@
+{
+  "name": "adaptive-personalized-diet-recommendation-system",
+  "version": "1.0.0",
+  "description": "Adaptive Personalized Diet Recommendation System with Nutrient Optimization and Real-Time Preference Learning",
+  "main": "index.html",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve -s .",
+    "start": "npx serve -s .",
+    "test": "node src/evaluation/benchmark.js"
+  },
+  "keywords": [
+    "diet-recommendation-system",
+    "personalized-nutrition",
+    "machine-learning",
+    "preference-learning",
+    "explainable-ai",
+    "research-project"
+  ],
+  "author": "Dinesh Kumar J B, Bharath Vikraman, Sanjay K",
+  "license": "MIT"
+}

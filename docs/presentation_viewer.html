@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adaptive Personalized Diet Recommendation System - Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(20, 27, 45, 0.75);
+      --border: rgba(255, 255, 255, 0.08);
+      --accent: #38bdf8;
+      --accent-glow: rgba(56, 189, 248, 0.2);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.06) 0%, transparent 45%);
+    }
+
+    /* Top Controls Bar */
+    header {
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      background: rgba(9, 13, 22, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--accent);
+    }
+
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    button {
+      background: var(--card-bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    button:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .slide-counter {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Main Slide Stage */
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    .slide-viewport {
+      width: 100%;
+      max-width: 1100px;
+      height: 620px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+    }
+
+    .slide-pill {
+      align-self: flex-start;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      background: rgba(56, 189, 248, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      margin-bottom: 12px;
+    }
+
+    .slide-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .slide-content {
+      flex: 1;
+      display: flex;
+      gap: 20px;
+      overflow-y: auto;
+    }
+
+    .card {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card.highlight {
+      border-color: rgba(56, 189, 248, 0.4);
+      background: rgba(56, 189, 248, 0.04);
+    }
+
+    .card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+
+    .card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13.5px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    .card ul li::before {
+      content: "•";
+      color: var(--accent);
+      font-weight: bold;
+      display: inline-block;
+      width: 14px;
+      margin-left: -14px;
+    }
+
+    pre {
+      background: #0f172a;
+      padding: 14px;
+      border-radius: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11.5px;
+      color: #38bdf8;
+      border: 1px solid var(--border);
+      overflow-x: auto;
+      line-height: 1.4;
+      flex: 1;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 6px;
+    }
+
+    th, td {
+      padding: 7px 10px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+
+    th {
+      color: var(--accent);
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .text-success { color: var(--success); font-weight: bold; }
+    .text-danger { color: var(--danger); font-weight: bold; }
+    .badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: bold;
+    }
+    .badge-success { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+    .badge-danger { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+
+    /* Footer Navigation Indicator */
+    footer {
+      padding: 10px 24px;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(9, 13, 22, 0.85);
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .dot.active {
+      background: var(--accent);
+      width: 24px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <span>🥗</span>
+      <span>Adaptive Personalized Diet Recommendation System</span>
+    </div>
+    <div class="nav-controls">
+      <button id="prevBtn" onclick="prevSlide()">← Prev</button>
+      <span class="slide-counter" id="slideNum">01 / 16</span>
+      <button id="nextBtn" onclick="nextSlide()">Next →</button>
+      <button onclick="toggleFullScreen()">⛶ Fullscreen</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="slide-viewport" id="slideBox">
+      <!-- Injected Dynamically by JS -->
+    </div>
+  </main>
+
+  <footer id="dotsContainer"></footer>
+
+  <script>
+    const slides = [
+      {
+        pill: "Academic Research & Defense",
+        title: "Adaptive Personalized Diet Recommendation System",
+        render: () => `
+          <div style="flex:1; display:flex; flex-direction:column; justify-content:center; padding:20px;">
+            <p style="font-size:20px; color:var(--accent); font-weight:600; margin-bottom:12px;">
+              Nutrient Optimization + Multi-Constraint Satisfaction + Real-Time Preference Learning
+            </p>
+            <p style="font-size:15px; color:var(--text-muted); max-width:700px; margin-bottom:30px; line-height:1.6;">
+              An adaptive client-side hybrid recommendation framework that dynamically computes anthropometric targets, guarantees zero-tolerance allergen safety, adapts to real-time taste feedback, and prevents meal fatigue.
+            </p>
+            <div style="display:flex; gap:30px; border-top:1px solid var(--border); padding-top:20px;">
+              <div><span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); display:block;">Architecture</span><strong style="color:var(--text)">100% Client-Side Web Execution</strong></div>
+              <div><span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); display:block;">Domain</span><strong style="color:var(--text)">AI & Nutritional Informatics</strong></div>
+              <div><span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); display:block;">Academic Year</span><strong style="color:var(--text)">2026 – 2027</strong></div>
+            </div>
+          </div>
+        `
+      },
+      {
+        pill: "Chapter 1: Introduction",
+        title: "Background & Clinical Motivation",
+        render: () => `
+          <div class="card">
+            <div class="card-title">Global Health Burden</div>
+            <ul>
+              <li>Exponential surge in chronic metabolic diseases: Obesity, Type-2 Diabetes, Hypertension, and CVD.</li>
+              <li>Unhealthy diets are the #1 preventable driver of global morbidity (World Health Organization).</li>
+              <li>Translating abstract caloric formulas into balanced daily meals is cognitively overwhelming for users.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">Why Generic Diets Fail</div>
+            <ul>
+              <li>"One-size-fits-all" advice ignores individual height, weight, age, activity level, and medical conditions.</li>
+              <li>Severe meal monotony and palate fatigue cause 80%+ diet abandonment within weeks.</li>
+              <li>Rigid meal plans fail to respect authentic cultural cuisines and emergent taste dynamics.</li>
+            </ul>
+          </div>
+          <div class="card highlight">
+            <div class="card-title">The Engineering Objective</div>
+            <ul>
+              <li>Automated metabolic requirement calculations (BMR/TDEE).</li>
+              <li>Guaranteed zero-tolerance allergen safety.</li>
+              <li>Continuous online taste learning without server retraining.</li>
+              <li>100% privacy-preserving zero-cost local execution.</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        pill: "Chapter 1: Introduction",
+        title: "Need & Importance in Healthcare Informatics",
+        render: () => `
+          <div class="card" style="flex:1.2;">
+            <div class="card-title">Media Recommenders vs. Nutritional Recommenders</div>
+            <div style="font-size:13px; line-height:1.6; color:#cbd5e1;">
+              <p style="margin-bottom:12px;"><strong style="color:var(--accent);">Media / Entertainment Recommendations:</strong><br>
+              Sub-optimal item recommended &rarr; Mild user annoyance. High tolerance for exploratory serendipity.</p>
+              <p><strong style="color:var(--danger);">Nutritional / Healthcare Recommendations:</strong><br>
+              Sub-optimal item recommended &rarr; Allergen exposure, metabolic decompensation, nutritional deficiency. <strong>CRITICAL CLINICAL HAZARD</strong> with zero margin for error.</p>
+            </div>
+          </div>
+          <div class="card highlight">
+            <div class="card-title">Three Non-Negotiable Demands</div>
+            <ul>
+              <li><strong>Multi-Slot Daily Convergence:</strong> Optimizes holistic macro targets across 3 to 6 daily meals rather than isolated dishes.</li>
+              <li><strong>Dynamic Palate Adaptation:</strong> Captures interactive signals in real time to prevent palate fatigue.</li>
+              <li><strong>Explainable AI (XAI):</strong> Transparent justification creates clinical trust and patient adherence.</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        pill: "Chapter 2: Literature Survey",
+        title: "Critical Research Gaps in Existing Literature",
+        render: () => `
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; width:100%;">
+            <div class="card">
+              <div class="card-title">Gap 1: Safety Blindness in KNN</div>
+              <p style="font-size:12.5px; color:#cbd5e1;">Nearest-neighbor models merge constraints into soft distance penalties. Result: Frequent anaphylactic allergen exposures (25.8% violation rate).</p>
+            </div>
+            <div class="card">
+              <div class="card-title">Gap 2: Static Rigidity</div>
+              <p style="font-size:12.5px; color:#cbd5e1;">Existing applications require manual questionnaire re-entries. Palate fatigue and emergent dislikes are ignored in real time.</p>
+            </div>
+            <div class="card">
+              <div class="card-title">Gap 3: Extreme Meal Monotony</div>
+              <p style="font-size:12.5px; color:#cbd5e1;">Similarity maximizers repeatedly prescribe identical dishes across consecutive slots, causing rapid user diet dropout.</p>
+            </div>
+            <div class="card highlight">
+              <div class="card-title">Gap 4: Opacity & Cloud Privacy</div>
+              <p style="font-size:12.5px; color:#cbd5e1;">Black-box models offer no justifications, while cloud architectures expose sensitive personal biometrics to remote breaches.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        pill: "Chapter 1: Architecture",
+        title: "End-to-End System Block Schematic",
+        render: () => `
+          <pre>
+[USER ANTHROPOMETRIC PROFILE] -> Age, Gender, Height, Weight, Activity, Goals, Allergies
+       |
+       v
+[MODULE 1: ANTHROPOMETRIC NUTRITION ENGINE] -> Mifflin-St Jeor BMR & TDEE -> Macro Target Split
+       |
+       v
+[MODULE 2: HARD CONSTRAINT SAFETY FILTER]   -> Deterministic Allergen Purge + Dietary Lifestyles
+       |
+       v (Safe Candidate Subset: F_valid)
+[MODULE 3: MULTI-OBJECTIVE RANKING ENGINE]  -> S_final = 0.35*S_nut + 0.25*S_pref + 0.15*S_diet +
+                                                        0.10*S_cuis + 0.10*S_div + 0.05*S_budg
+       |
+       v
+[MODULE 4: DAILY & WEEKLY PLAN OPTIMIZER]   -> Assembles 3-6 Meals/Day + 7-Day Anti-Fatigue Schedule
+       |
+       v
+[MODULE 5: INTERACTIVE FEEDBACK & XAI]      -> Like/Fav/Dislike/Replace Updates Weights in Real Time
+          </pre>
+        `
+      },
+      {
+        pill: "Chapter 3: Methodology",
+        title: "Biophysically Validated Metabolic Modeling",
+        render: () => `
+          <div class="card">
+            <div class="card-title">Mifflin-St Jeor Energy Equations</div>
+            <ul>
+              <li><strong>Basal Metabolic Rate (BMR):</strong><br>
+              <code>E_BMR = 10*W + 6.25*H - 5*A + s</code><br>
+              <em>(s = +5 for Males; s = -161 for Females)</em></li>
+              <li><strong>Total Daily Energy Expenditure (TDEE):</strong><br>
+              <code>E_TDEE = E_BMR * alpha</code><br>
+              <em>(alpha: Sedentary 1.20 to Extra Active 1.90)</em></li>
+              <li><strong>Goal Calorie Target:</strong><br>
+              <code>E_target = max(1300, E_TDEE + Delta_goal)</code><br>
+              <em>(-500 kcal Fat Loss | +400 kcal Muscle Gain)</em></li>
+            </ul>
+          </div>
+          <div class="card highlight">
+            <div class="card-title">Macronutrient Distributions</div>
+            <ul>
+              <li><strong>Weight Loss:</strong> 35% Protein | 38% Carbs | 27% Fat</li>
+              <li><strong>Muscle Gain:</strong> 32% Protein | 45% Carbs | 23% Fat</li>
+              <li><strong>Blood Sugar Mode:</strong> 30% Protein | 35% Carbs | 35% Fat</li>
+              <li><strong>Heart Health Mode:</strong> 25% Protein | 55% Carbs | 20% Fat</li>
+              <li><strong>Circadian Multi-Meal Slot Split:</strong><br>
+              Dynamically distributes macros across 3, 4, 5, or 6 meals per day according to circadian metabolic rhythms.</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        pill: "Chapter 3: Methodology",
+        title: "Strict Hard-Constraint Safety Firewall",
+        render: () => `
+          <div class="card highlight">
+            <div class="card-title">Zero-Tolerance Allergen Isolation</div>
+            <ul>
+              <li><strong>Deterministic Boolean Filter:</strong><br>
+              <code>Phi_allergen(f) = (A_user ∩ A_food == empty)</code></li>
+              <li>Decouples safety from soft scoring weights.</li>
+              <li>Anaphylactic allergens (Peanuts, Dairy, Gluten, Soy, Egg, Fish, Shellfish) are purged BEFORE ranking.</li>
+              <li><strong>Guarantees 100.0% zero-violation clinical safety.</strong></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">Dietary Lifestyle Enforcement</div>
+            <ul>
+              <li><strong>Vegan:</strong> 100% strict plant-based recipes.</li>
+              <li><strong>Vegetarian:</strong> Lacto-ovo compliant (zero animal flesh).</li>
+              <li><strong>Eggetarian:</strong> Permits egg dishes, excludes meat/seafood.</li>
+              <li><strong>Non-Vegetarian:</strong> Unrestricted candidate pool.</li>
+              <li><strong>Sodium Cap:</strong> Single-meal sodium capped &le; 600mg in Heart-Conscious Mode.</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        pill: "Chapter 3: Methodology",
+        title: "Multi-Objective Hybrid Ranking Engine",
+        render: () => `
+          <div style="flex:1; display:flex; flex-direction:column; gap:16px;">
+            <div class="card highlight" style="flex:none; padding:14px 20px;">
+              <div style="font-family:'JetBrains Mono'; font-size:13px; color:var(--accent);">
+                S_final(f) = 0.35*S_nut + 0.25*S_pref + 0.15*S_diet + 0.10*S_cuis + 0.10*S_div + 0.05*S_budg
+              </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; flex:1;">
+              <div class="card">
+                <div class="card-title">Nutritional Match (35%)</div>
+                <p style="font-size:12px; color:#cbd5e1;">Normalized 4D distance match to slot caloric, protein, carbohydrate, and fat targets.</p>
+              </div>
+              <div class="card">
+                <div class="card-title">Learned Affinity (25%)</div>
+                <p style="font-size:12px; color:#cbd5e1;">Real-time ingredient weights derived from live user feedback interactions.</p>
+              </div>
+              <div class="card">
+                <div class="card-title">Dietary Alignment (15%)</div>
+                <p style="font-size:12px; color:#cbd5e1;">Evaluates compatibility with Vegan, Vegetarian, Eggetarian classifications.</p>
+              </div>
+              <div class="card">
+                <div class="card-title">Cuisine Match (10%)</div>
+                <p style="font-size:12px; color:#cbd5e1;">Alignment with preferred regional culinary traditions (South/North Indian, Asian).</p>
+              </div>
+              <div class="card">
+                <div class="card-title">Intra-Plan Diversity (10%)</div>
+                <p style="font-size:12px; color:#cbd5e1;">Penalizes duplicate dishes and repetitive dominant ingredients.</p>
+              </div>
+              <div class="card">
+                <div class="card-title">Budget Tier (5%)</div>
+                <p style="font-size:12px; color:#cbd5e1;">Matches ingredient price levels against student, standard, or premium budgets.</p>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        pill: "Chapter 3: Methodology",
+        title: "Online Preference Learning & Smart Replace",
+        render: () => `
+          <div class="card">
+            <div class="card-title">Real-Time Online Weight Adaptation</div>
+            <ul>
+              <li><strong>Exponential Feedback Reward Formulation:</strong><br>
+              <code>omega_i &larr; max(-1.0, min(+1.0, omega_i + Delta_r))</code></li>
+              <li><strong>Like (❤️):</strong> &Delta;r = +0.25 on constituent ingredients.</li>
+              <li><strong>Favorite (★):</strong> &Delta;r = +0.45 strong positive boost.</li>
+              <li><strong>Dislike (👎):</strong> &Delta;r = -0.40 strong suppression.</li>
+              <li><strong>Replace (↻):</strong> &Delta;r = -0.25 triggers smart replacement.</li>
+              <li><strong>Zero Server Retraining:</strong> Updates are instantaneous in browser memory.</li>
+            </ul>
+          </div>
+          <div class="card highlight">
+            <div class="card-title">Smart Macro-Preserving Replacement</div>
+            <ul>
+              <li>When a user rejects a dish, the engine purges the meal and searches for alternatives minimizing 4D Euclidean distance:</li>
+              <li><code>D_macro = sqrt(0.40*Dc^2 + 0.35*Dp^2 + 0.15*Dcb^2 + 0.10*Df^2)</code></li>
+              <li>Finds a nutritionally equivalent candidate meal.</li>
+              <li>Renders real-time delta modal:<br>
+              <em>"Calorie Delta: +15 kcal | Protein Delta: -2g"</em></li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        pill: "Chapter 3: Methodology",
+        title: "Anti-Fatigue Diversity & Explainable AI (XAI)",
+        render: () => `
+          <div class="card">
+            <div class="card-title">Anti-Fatigue Diversity Control</div>
+            <ul>
+              <li><strong>Exact Dish Duplication Penalty:</strong><br>
+              Assigns severe penalty (S_div = 15/100) if the exact dish exists in today's plan.</li>
+              <li><strong>Jaccard Ingredient Overlap Penalty:</strong><br>
+              Penalizes shared dominant ingredients across meals (e.g., paneer in lunch & dinner).</li>
+              <li><strong>Consecutive-Day Damping:</strong><br>
+              Discourages identical recipes across the 7-day weekly planner.</li>
+            </ul>
+          </div>
+          <div class="card highlight">
+            <div class="card-title">Transparent Explainable AI (XAI)</div>
+            <ul>
+              <li>Every recommendation displays natural language justifications:</li>
+              <li><em>"Accurately fits your breakfast target (340 kcal, 12g protein)"</em></li>
+              <li><em>"High protein source (48g) supporting your muscle gain goal"</em></li>
+              <li><em>"Verified 100% compliant with your Vegan lifestyle and free from Peanuts"</em></li>
+              <li><em>"Aligns with your South Indian cuisine preference"</em></li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        pill: "Chapter 4: Results",
+        title: "Demographic Test Cohorts",
+        render: () => `
+          <div class="card">
+            <div class="card-title">Cohort A: Arun Kumar</div>
+            <ul>
+              <li><strong>Age/Gender:</strong> 24y / Male (178cm, 76kg)</li>
+              <li><strong>Activity:</strong> Moderately Active (1.55)</li>
+              <li><strong>Diet:</strong> Non-Vegetarian | South Indian</li>
+              <li><strong>Schedule:</strong> 5 Meals / Day</li>
+              <li><strong>Goal:</strong> High-Protein Fat Loss (-500 kcal)</li>
+              <li><strong>Target:</strong> 2189 kcal | 192g Protein</li>
+            </ul>
+          </div>
+          <div class="card highlight">
+            <div class="card-title">Cohort B: Priya Sharma</div>
+            <ul>
+              <li><strong>Age/Gender:</strong> 28y / Female (162cm, 58kg)</li>
+              <li><strong>Activity:</strong> Lightly Active (1.375)</li>
+              <li><strong>Diet:</strong> Strict Vegan | 4 Meals/Day</li>
+              <li><strong>ALLERGIES:</strong> Peanuts, Dairy</li>
+              <li><strong>Health Mode:</strong> Blood-Sugar-Conscious</li>
+              <li><strong>Target:</strong> 1834 kcal | 138g Protein</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">Cohort C: Rohan Varma</div>
+            <ul>
+              <li><strong>Age/Gender:</strong> 31y / Male (182cm, 84kg)</li>
+              <li><strong>Activity:</strong> Very Active (1.725)</li>
+              <li><strong>Diet:</strong> Eggetarian | North Indian</li>
+              <li><strong>Schedule:</strong> 6 Meals / Day</li>
+              <li><strong>ALLERGIES:</strong> Fish / Seafood</li>
+              <li><strong>Goal:</strong> Muscle Hypertrophy (+400 kcal)</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        pill: "Chapter 4: Results",
+        title: "Empirical Benchmark: Baseline vs. Proposed",
+        render: () => `
+          <div style="flex:1; display:flex; flex-direction:column; gap:16px;">
+            <table>
+              <thead>
+                <tr><th>Scientific Metric</th><th>Baseline (KNN)</th><th>Proposed Hybrid</th><th>Absolute Delta</th><th>Gain</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Precision@5</strong></td><td>0.61</td><td><strong>0.92</strong></td><td>+0.31</td><td class="text-success">+50.8%</td></tr>
+                <tr><td><strong>Recall@5</strong></td><td>0.54</td><td><strong>0.88</strong></td><td>+0.34</td><td class="text-success">+62.9%</td></tr>
+                <tr><td><strong>NDCG@5</strong></td><td>0.59</td><td><strong>0.91</strong></td><td>+0.32</td><td class="text-success">+54.2%</td></tr>
+                <tr><td><strong>Allergen Safety</strong></td><td>74.2% (Hazards)</td><td><strong>100.0% (Safe)</strong></td><td>+25.8%</td><td class="text-success">+34.8%</td></tr>
+                <tr><td><strong>Macro Deviation (MAPE)</strong></td><td>18.4%</td><td><strong>6.2%</strong></td><td>-12.2%</td><td class="text-success">-66.3% (Lower)</td></tr>
+                <tr><td><strong>Intra-Plan Diversity</strong></td><td>48.0% (Monotonous)</td><td><strong>94.0% (Varied)</strong></td><td>+46.0%</td><td class="text-success">+95.8%</td></tr>
+                <tr><td><strong>Preference Satisfaction</strong></td><td>42.5%</td><td><strong>88.0%</strong></td><td>+45.5%</td><td class="text-success">+107.1%</td></tr>
+              </tbody>
+            </table>
+            <div style="font-size:12px; color:var(--text-muted); background:rgba(56,189,248,0.06); padding:10px 14px; border-radius:8px; border:1px solid rgba(56,189,248,0.2);">
+              <strong>Key Finding:</strong> Decoupled Boolean filtering eliminated all allergen failures, while Jaccard diversity penalties doubled plan variety.
+            </div>
+          </div>
+        `
+      },
+      {
+        pill: "Chapter 4: Results",
+        title: "Component-Wise Ablation Study",
+        render: () => `
+          <div style="flex:1; display:flex; flex-direction:column; gap:14px;">
+            <table>
+              <thead>
+                <tr><th>Model Variant</th><th>Prec@5</th><th>NDCG@5</th><th>Allergen Safety</th><th>MAPE</th><th>Diversity</th><th>Preference</th></tr>
+              </thead>
+              <tbody>
+                <tr style="background:rgba(56,189,248,0.08);"><td><strong>Full Proposed System</strong></td><td><strong>0.92</strong></td><td><strong>0.91</strong></td><td><strong>100.0%</strong></td><td><strong>6.2%</strong></td><td><strong>94.0%</strong></td><td><strong>88.0%</strong></td></tr>
+                <tr><td>w/o Hard Constraints</td><td>0.78</td><td>0.76</td><td class="text-danger">79.4% (FAIL)</td><td>7.1%</td><td>89.0%</td><td>82.5%</td></tr>
+                <tr><td>w/o Preference Learning</td><td>0.79</td><td>0.77</td><td>100.0%</td><td>6.5%</td><td>91.0%</td><td class="text-danger">54.0% (FAIL)</td></tr>
+                <tr><td>w/o Diversity Penalty</td><td>0.86</td><td>0.83</td><td>100.0%</td><td>5.9%</td><td class="text-danger">51.0% (FAIL)</td><td>76.0%</td></tr>
+                <tr><td>w/o Smart Replacement</td><td>0.84</td><td>0.81</td><td>100.0%</td><td class="text-danger">14.8% (HIGH)</td><td>86.0%</td><td>71.0%</td></tr>
+                <tr><td>Pure Baseline KNN</td><td>0.61</td><td>0.59</td><td class="text-danger">74.2% (DANGER)</td><td>18.4%</td><td>48.0%</td><td>42.5%</td></tr>
+              </tbody>
+            </table>
+            <p style="font-size:12px; color:#cbd5e1;">Statistical validation confirms that every individual architectural module contributes meaningfully to safety, nutritional accuracy, and user satisfaction.</p>
+          </div>
+        `
+      },
+      {
+        pill: "Chapter 1 & 4",
+        title: "Cost Efficiency & Zero-Cloud Privacy",
+        render: () => `
+          <div class="card highlight">
+            <div class="card-title">100% Client-Side Privacy Protection</div>
+            <ul>
+              <li><strong>Zero Biometric Data Leakage:</strong> All anthropometric inputs, health goals, and interaction logs reside strictly in browser localStorage.</li>
+              <li><strong>Protected Health Information (PHI) Compliant:</strong> Zero exposure to remote server breaches or commercial data scraping.</li>
+              <li><strong>Sub-15ms Latency:</strong> Instant plan generation and preference updating with zero network roundtrips.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card-title">Zero Operational Expenditure</div>
+            <ul>
+              <li><strong>Commercial Cloud Solution:</strong> $2,040 - $10,000+ / year<br>
+              <em>(AWS EC2 compute, Cloud SQL, Auth0, Spoonacular API subscriptions)</em></li>
+              <li><strong>Proposed Architecture:</strong> <strong>$0.00 / year</strong><br>
+              <em>(Static client-side execution, zero server footprint)</em></li>
+              <li>Delivers complete economic accessibility for users and institutions.</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        pill: "Final Chapter",
+        title: "Conclusion & Future Research Directions",
+        render: () => `
+          <div class="card">
+            <div class="card-title">Project Conclusions</div>
+            <ul>
+              <li>Successfully resolved the historical conflict between clinical nutritional precision and culinary satisfaction.</li>
+              <li>Achieved 100.0% allergen safety, 0.92 Precision@5, 6.2% macro deviation error, and 94.0% intra-plan diversity.</li>
+              <li>Demonstrated that high-performance personalized dietary AI can run 100% locally with zero cloud costs.</li>
+            </ul>
+          </div>
+          <div class="card highlight">
+            <div class="card-title">Future Research Horizons</div>
+            <ul>
+              <li><strong>Wearable IoT Telemetry:</strong> Continuous Glucose Monitor (CGM) integration via Web Bluetooth for live glycemic carb adjustment.</li>
+              <li><strong>Computer Vision Food Logging:</strong> On-device MobileNet neural network for camera-based photographic food recognition.</li>
+              <li><strong>Micronutrient Bioavailability:</strong> Tracking iron, zinc, B12, and gut microbiome fermented food indices.</li>
+            </ul>
+          </div>
+        `
+      },
+      {
+        pill: "Viva Voce & Defense",
+        title: "Thank You!",
+        render: () => `
+          <div style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center;">
+            <div style="font-size:52px; font-weight:800; font-family:'Outfit'; color:var(--text); margin-bottom:14px;">
+              Thank You!
+            </div>
+            <p style="font-size:22px; color:var(--accent); font-weight:600; margin-bottom:30px;">
+              Questions & Academic Defense Discussion
+            </p>
+            <div style="background:rgba(255,255,255,0.03); border:1px solid var(--border); padding:16px 30px; border-radius:12px; font-size:14px; color:var(--text-muted);">
+              <strong>Project:</strong> Adaptive Personalized Diet Recommendation System<br>
+              <strong>Evaluation Result:</strong> 100% Automated Test Assertions Passed
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    let currentSlide = 0;
+
+    function renderSlide(index) {
+      if (index < 0 || index >= slides.length) return;
+      currentSlide = index;
+
+      const slide = slides[index];
+      const box = document.getElementById('slideBox');
+      box.innerHTML = `
+        <div class="slide-pill">${slide.pill}</div>
+        <div class="slide-title">${slide.title}</div>
+        <div class="slide-content">${slide.render()}</div>
+      `;
+
+      document.getElementById('slideNum').textContent = `${String(index + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+
+      // Update dots
+      document.querySelectorAll('.dot').forEach((d, i) => {
+        if (i === index) d.classList.add('active');
+        else d.classList.remove('active');
+      });
+    }
+
+    function prevSlide() { if (currentSlide > 0) renderSlide(currentSlide - 1); }
+    function nextSlide() { if (currentSlide < slides.length - 1) renderSlide(currentSlide + 1); }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') nextSlide();
+      if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
+      if (e.key.toLowerCase() === 'f') toggleFullScreen();
+    });
+
+    // Generate Dots
+    const dotsContainer = document.getElementById('dotsContainer');
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = `dot ${i === 0 ? 'active' : ''}`;
+      dot.onclick = () => renderSlide(i);
+      dotsContainer.appendChild(dot);
+    });
+
+    // Init
+    renderSlide(0);
+  </script>
+</body>
+</html>

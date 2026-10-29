@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adaptive Personalized Diet Recommendation System | Research Framework</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+
+  <!-- Global Header Navigation -->
+  <header class="header-nav">
+    <div class="nav-container">
+      <a href="#landing" class="brand-logo" data-view-target="landing">
+        <div class="brand-icon">🥗</div>
+        <span>NutriAdaptive AI</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#landing" class="nav-link active" data-view="landing">Home</a></li>
+          <li><a href="#profile" class="nav-link" data-view="profile">Profile</a></li>
+          <li><a href="#preferences" class="nav-link" data-view="preferences">Preferences</a></li>
+          <li><a href="#mealplan" class="nav-link" data-view="mealplan">Daily Plan</a></li>
+          <li><a href="#weekly" class="nav-link" data-view="weekly">Weekly Plan</a></li>
+          <li><a href="#nutrition" class="nav-link" data-view="nutrition">Nutrition</a></li>
+          <li><a href="#history" class="nav-link" data-view="history">Preferences Log</a></li>
+          <li><a href="#benchmark" class="nav-link" data-view="benchmark">Benchmark</a></li>
+          <li><a href="#tests" class="nav-link" data-view="tests">Tests</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main View Container -->
+  <main class="main-wrapper">
+
+    <!-- 1. LANDING VIEW -->
+    <section id="landing-view" class="view-section">
+      <div class="hero-box">
+        <div class="hero-badge">
+          <span>✨ Academic Research Project</span> • <span>Client-Side Adaptive AI</span>
+        </div>
+        <h1 class="hero-title">Your Diet. Your Goals. Your Plan.</h1>
+        <p class="hero-subtitle">
+          An adaptive hybrid diet recommendation framework that dynamically optimizes macronutrients, enforces
+          multi-constraint safety, learns your tastes in real time, and prevents meal fatigue.
+        </p>
+        <div class="flex justify-center gap-3">
+          <button class="btn btn-primary" data-view-target="profile">Create My Custom Plan</button>
+          <button class="btn btn-outline" data-view-target="benchmark">View Baseline vs Proposed</button>
+        </div>
+
+        <!-- Quick 1-Click Demo Profiles -->
+        <div class="mt-4 pt-4 border-t border-gray-800">
+          <span class="text-xs text-muted block mb-2 font-semibold uppercase tracking-wider">
+            ⚡ Or Try an Instant Pre-Configured Demo Profile:
+          </span>
+          <div class="demo-strip">
+            <div class="demo-card" data-demo-user="arun">
+              <div class="flex-between">
+                <span class="font-bold">Arun Kumar</span>
+                <span class="badge badge-nonveg">Non-Veg</span>
+              </div>
+              <p class="text-xs text-muted mt-1">24y, South Indian, High-Protein Fat Loss, 5 Meals/Day</p>
+            </div>
+            <div class="demo-card" data-demo-user="priya">
+              <div class="flex-between">
+                <span class="font-bold">Priya Sharma</span>
+                <span class="badge badge-vegan">Vegan</span>
+              </div>
+              <p class="text-xs text-muted mt-1">28y, Diabetic-Friendly, Peanut Allergic, 4 Meals/Day</p>
+            </div>
+            <div class="demo-card" data-demo-user="rohan">
+              <div class="flex-between">
+                <span class="font-bold">Rohan Varma</span>
+                <span class="badge badge-egg">Eggetarian</span>
+              </div>
+              <p class="text-xs text-muted mt-1">31y, North Indian, Muscle Gain Surplus, 6 Meals/Day</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PROFILE VIEW -->
+    <section id="profile-view" class="view-section hidden">
+      <div class="max-w-3xl mx-auto">
+        <div class="flex-between mb-4">
+          <div>
+            <h2 class="text-2xl font-bold">User Anthropometrics & Goal Setup</h2>
+            <p class="text-sm text-muted">Input physical parameters to compute your baseline energy expenditure (BMR &
+              TDEE).</p>
+          </div>
+        </div>
+
+        <!-- Live Metrics Bar -->
+        <div class="glass-card p-4 mb-4 grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div>
+            <span class="text-2xs text-muted block uppercase">Estimated BMI</span>
+            <span id="metric-live-bmi" class="font-bold text-lg text-accent">--</span>
+          </div>
+          <div>
+            <span class="text-2xs text-muted block uppercase">Maintenance TDEE</span>
+            <span id="metric-live-tdee" class="font-bold text-lg">--</span>
+          </div>
+          <div>
+            <span class="text-2xs text-muted block uppercase">Target Daily Calories</span>
+            <span id="metric-live-calories" class="font-bold text-lg text-success">--</span>
+          </div>
+          <div>
+            <span class="text-2xs text-muted block uppercase">Target Protein</span>
+            <span id="metric-live-protein" class="font-bold text-lg text-accent">--</span>
+          </div>
+        </div>
+
+        <!-- Profile Form -->
+        <form id="profile-form" class="glass-card p-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="form-group">
+              <label class="form-label" for="prof-name">Full Name</label>
+              <input type="text" id="prof-name" class="form-input" required placeholder="e.g. Arun Kumar" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prof-gender">Gender</label>
+              <select id="prof-gender" class="form-select">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prof-age">Age (years)</label>
+              <input type="number" id="prof-age" class="form-input" min="15" max="99" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prof-height">Height (cm)</label>
+              <input type="number" id="prof-height" class="form-input" min="100" max="250" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prof-weight">Weight (kg)</label>
+              <input type="number" id="prof-weight" class="form-input" min="30" max="250" step="0.5" required />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prof-activity">Activity Level</label>
+              <select id="prof-activity" class="form-select">
+                <option value="1.20">Sedentary (Desk job, no workout)</option>
+                <option value="1.375">Lightly Active (1-3 days/week)</option>
+                <option value="1.55" selected>Moderately Active (3-5 days/week)</option>
+                <option value="1.725">Very Active (6-7 days heavy training)</option>
+                <option value="1.90">Extra Active (Athlete / Physical job)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prof-goal">Primary Fitness Goal</label>
+              <select id="prof-goal" class="form-select">
+                <option value="general">General Healthy Maintenance</option>
+                <option value="weight_loss">Weight Loss & Fat Reduction (-500 kcal)</option>
+                <option value="muscle_gain">Lean Muscle Hypertrophy (+400 kcal)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prof-diet">Dietary Classification</label>
+              <select id="prof-diet" class="form-select">
+                <option value="Non-Vegetarian">Non-Vegetarian</option>
+                <option value="Vegetarian">Vegetarian (Lacto-Ovo)</option>
+                <option value="Vegan">100% Strict Vegan</option>
+                <option value="Eggetarian">Eggetarian</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prof-meals">Configurable Meals Per Day</label>
+              <select id="prof-meals" class="form-select">
+                <option value="3">3 Meals (Breakfast, Lunch, Dinner)</option>
+                <option value="4">4 Meals (Breakfast, Lunch, Snack, Dinner)</option>
+                <option value="5" selected>5 Meals (Standard Optimal Distribution)</option>
+                <option value="6">6 Meals (Bodybuilding / Athletic High Frequency)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="prof-healthmode">Health-Constraint Mode</label>
+              <select id="prof-healthmode" class="form-select">
+                <option value="general">General Balanced Healthy</option>
+                <option value="weight_loss">Weight Management Mode</option>
+                <option value="muscle_gain">High-Protein Fitness Mode</option>
+                <option value="blood_sugar">Blood-Sugar-Conscious Mode</option>
+                <option value="low_sodium">Heart-Conscious / Low Sodium Mode</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mt-4 flex justify-end">
+            <button type="submit" class="btn btn-primary">Save Profile & Continue to Preferences →</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- 3. PREFERENCES & CONSTRAINTS VIEW -->
+    <section id="preferences-view" class="view-section hidden">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-2xl font-bold mb-1">Dietary Preferences & Safety Constraints</h2>
+        <p class="text-sm text-muted mb-4">Set allergen exclusions (hard constraints) and cuisine preferences (soft
+          ranking factors).</p>
+
+        <form id="preferences-form" class="glass-card p-5">
+          <!-- Cuisine Selector -->
+          <div class="form-group">
+            <label class="form-label">Preferred Primary Cuisine</label>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+              <label
+                class="flex items-center gap-2 p-2 rounded bg-opacity-5 bg-white cursor-pointer hover:bg-opacity-10">
+                <input type="radio" name="pref-cuisine" value="South Indian" checked />
+                <span class="text-sm">South Indian</span>
+              </label>
+              <label
+                class="flex items-center gap-2 p-2 rounded bg-opacity-5 bg-white cursor-pointer hover:bg-opacity-10">
+                <input type="radio" name="pref-cuisine" value="North Indian" />
+                <span class="text-sm">North Indian</span>
+              </label>
+              <label
+                class="flex items-center gap-2 p-2 rounded bg-opacity-5 bg-white cursor-pointer hover:bg-opacity-10">
+                <input type="radio" name="pref-cuisine" value="Continental" />
+                <span class="text-sm">Continental</span>
+              </label>
+              <label
+                class="flex items-center gap-2 p-2 rounded bg-opacity-5 bg-white cursor-pointer hover:bg-opacity-10">
+                <input type="radio" name="pref-cuisine" value="Asian" />
+                <span class="text-sm">Asian</span>
+              </label>
+              <label
+                class="flex items-center gap-2 p-2 rounded bg-opacity-5 bg-white cursor-pointer hover:bg-opacity-10">
+                <input type="radio" name="pref-cuisine" value="Mediterranean" />
+                <span class="text-sm">Mediterranean</span>
+              </label>
+              <label
+                class="flex items-center gap-2 p-2 rounded bg-opacity-5 bg-white cursor-pointer hover:bg-opacity-10">
+                <input type="radio" name="pref-cuisine" value="Any" />
+                <span class="text-sm">Any / Global</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Allergy Exclusions (Hard Constraints) -->
+          <div class="form-group mt-4">
+            <label class="form-label text-danger font-bold">⚠️ Food Allergies (Hard Exclusion - Never
+              Recommended)</label>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+              <label class="flex items-center gap-2 p-2 rounded bg-opacity-5 bg-white cursor-pointer">
+                <input type="checkbox" name="pref-allergy" value="Peanuts" />
+                <span class="text-sm">Peanuts</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded bg-opacity-5 bg-white cursor-pointer">
+                <input type="checkbox" name="pref-allergy" value="Dairy" />
+                <span class="text-sm">Dairy / Milk</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded bg-opacity-5 bg-white cursor-pointer">
+                <input type="checkbox" name="pref-allergy" value="Gluten" />
+                <span class="text-sm">Gluten / Wheat</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded bg-opacity-5 bg-white cursor-pointer">
+                <input type="checkbox" name="pref-allergy" value="Soy" />
+                <span class="text-sm">Soy</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded bg-opacity-5 bg-white cursor-pointer">
+                <input type="checkbox" name="pref-allergy" value="Egg" />
+                <span class="text-sm">Egg</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded bg-opacity-5 bg-white cursor-pointer">
+                <input type="checkbox" name="pref-allergy" value="Fish" />
+                <span class="text-sm">Fish / Seafood</span>
+              </label>
+              <label class="flex items-center gap-2 p-2 rounded bg-opacity-5 bg-white cursor-pointer">
+                <input type="checkbox" name="pref-allergy" value="Tree Nuts" />
+                <span class="text-sm">Tree Nuts</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Explicit Dislikes & Preferred Foods -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <div class="form-group">
+              <label class="form-label" for="pref-dislikes">Disliked / Excluded Foods (comma-separated)</label>
+              <input type="text" id="pref-dislikes" class="form-input" placeholder="e.g. oats, bitter gourd, salads" />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="pref-preferred">Preferred Favorite Foods (comma-separated)</label>
+              <input type="text" id="pref-preferred" class="form-input"
+                placeholder="e.g. chicken, paneer, brown rice, dosa" />
+            </div>
+          </div>
+
+          <!-- Budget Preference -->
+          <div class="form-group mt-3">
+            <label class="form-label">Budget Preference</label>
+            <div class="flex gap-4">
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="pref-budget" value="$" />
+                <span class="text-sm">$ Economy / Student</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="pref-budget" value="$$" checked />
+                <span class="text-sm">$$ Standard Wholesome</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="pref-budget" value="$$$" />
+                <span class="text-sm">$$$ Premium / Superfoods</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="mt-4 flex justify-end">
+            <button type="submit" class="btn btn-primary">Generate My Adaptive Plan 🚀</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- 4. DAILY MEAL PLAN VIEW -->
+    <section id="mealplan-view" class="view-section hidden">
+      <div id="daily-plan-container">
+        <!-- Rendered dynamically by src/app.js -->
+      </div>
+    </section>
+
+    <!-- 5. 7-DAY WEEKLY PLAN VIEW -->
+    <section id="weekly-view" class="view-section hidden">
+      <div class="mb-4">
+        <h2 class="text-2xl font-bold">7-Day Adaptive Weekly Planner</h2>
+        <p class="text-sm text-muted">Intelligently varies meals day-by-day to eliminate meal fatigue while maintaining
+          target calories.</p>
+      </div>
+      <div id="weekly-plan-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- 6. NUTRITION PROGRESS DASHBOARD VIEW -->
+    <section id="nutrition-view" class="view-section hidden">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-2xl font-bold mb-1">Macronutrient & Energy Balance Dashboard</h2>
+        <p class="text-sm text-muted mb-4">Detailed comparison of your estimated target requirements vs. recommended
+          plan actuals.</p>
+
+        <div class="glass-card p-5 space-y-4">
+          <!-- Calories Meter -->
+          <div>
+            <div class="flex-between mb-1">
+              <span class="font-bold">Total Daily Calories</span>
+              <span id="nut-val-cal" class="text-sm">--</span>
+            </div>
+            <div class="progress-bar-lg">
+              <div id="nut-bar-cal" class="progress-fill" style="width:0%"></div>
+            </div>
+            <span id="nut-pct-cal" class="text-2xs text-muted block text-right mt-1">--%</span>
+          </div>
+
+          <!-- Protein Meter -->
+          <div>
+            <div class="flex-between mb-1">
+              <span class="font-bold text-accent">Protein (Muscle Maintenance & Repair)</span>
+              <span id="nut-val-prot" class="text-sm text-accent">--</span>
+            </div>
+            <div class="progress-bar-lg">
+              <div id="nut-bar-prot" class="progress-fill" style="background:#38bdf8; width:0%"></div>
+            </div>
+            <span id="nut-pct-prot" class="text-2xs text-muted block text-right mt-1">--%</span>
+          </div>
+
+          <!-- Carbs Meter -->
+          <div>
+            <div class="flex-between mb-1">
+              <span class="font-bold">Carbohydrates (Energy & Glycogen)</span>
+              <span id="nut-val-carbs" class="text-sm">--</span>
+            </div>
+            <div class="progress-bar-lg">
+              <div id="nut-bar-carbs" class="progress-fill" style="background:#f59e0b; width:0%"></div>
+            </div>
+            <span id="nut-pct-carbs" class="text-2xs text-muted block text-right mt-1">--%</span>
+          </div>
+
+          <!-- Fat Meter -->
+          <div>
+            <div class="flex-between mb-1">
+              <span class="font-bold">Healthy Fats (Hormone & Cellular Health)</span>
+              <span id="nut-val-fat" class="text-sm">--</span>
+            </div>
+            <div class="progress-bar-lg">
+              <div id="nut-bar-fat" class="progress-fill" style="background:#a855f7; width:0%"></div>
+            </div>
+            <span id="nut-pct-fat" class="text-2xs text-muted block text-right mt-1">--%</span>
+          </div>
+
+          <!-- Fiber Meter -->
+          <div>
+            <div class="flex-between mb-1">
+              <span class="font-bold text-success">Dietary Fiber (Gut Health & Satiety)</span>
+              <span id="nut-val-fiber" class="text-sm text-success">--</span>
+            </div>
+            <div class="progress-bar-lg">
+              <div id="nut-bar-fiber" class="progress-fill" style="background:#10b981; width:0%"></div>
+            </div>
+            <span id="nut-pct-fiber" class="text-2xs text-muted block text-right mt-1">--%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. PREFERENCE HISTORY & LEARNED AFFINITIES VIEW -->
+    <section id="history-view" class="view-section hidden">
+      <div class="mb-4">
+        <h2 class="text-2xl font-bold">Real-Time Preference Learning Log</h2>
+        <p class="text-sm text-muted">Visual representation of learned ingredient weights and user interaction history.
+        </p>
+      </div>
+      <div id="history-container">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- 8. BENCHMARK & COMPARISON VIEW -->
+    <section id="benchmark-view" class="view-section hidden">
+      <div class="mb-4 flex-between">
+        <div>
+          <h2 class="text-2xl font-bold">Baseline vs. Proposed System Benchmark</h2>
+          <p class="text-sm text-muted">Quantitative evaluation comparing original GitHub KNN baseline with our Adaptive
+            Hybrid Recommender.</p>
+        </div>
+        <button id="btn-rerun-benchmark" class="btn btn-outline btn-sm">Re-Run Benchmark</button>
+      </div>
+
+      <div class="glass-card p-4">
+        <div id="benchmark-table-container">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. TEST RUNNER VIEW -->
+    <section id="tests-view" class="view-section hidden">
+      <div class="max-w-3xl mx-auto">
+        <div class="flex-between mb-4">
+          <div>
+            <h2 class="text-2xl font-bold">Client-Side Automated Test Suite</h2>
+            <p class="text-sm text-muted">Executes unit and integration test assertions in the browser.</p>
+          </div>
+          <button id="btn-run-tests" class="btn btn-primary btn-sm">Run Test Suite</button>
+        </div>
+        <div class="glass-card p-4" id="test-results-output">
+          <p class="text-xs text-muted text-center py-4">Click "Run Test Suite" to execute test assertions.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Smart Meal Replacement Modal -->
+  <div id="replacement-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="flex-between mb-3">
+        <h3 class="font-bold text-lg text-accent">Smart Meal Replacement</h3>
+        <button id="close-rep-modal" class="text-muted hover:text-white text-lg">&times;</button>
+      </div>
+      <p class="text-xs text-muted mb-3">Found a nutritionally equivalent alternative that satisfies all strict
+        constraints.</p>
+
+      <div class="p-3 rounded bg-opacity-10 bg-white flex items-center gap-3 mb-3">
+        <img id="rep-new-img" src="" alt="Replacement Meal" class="w-16 h-16 rounded object-cover" />
+        <div>
+          <span class="text-2xs text-muted">Replaced: <span id="rep-old-name" class="line-through"></span></span>
+          <h4 id="rep-new-name" class="font-bold text-accent"></h4>
+        </div>
+      </div>
+
+      <div class="macro-chips-grid mb-3">
+        <div class="macro-chip">
+          <span class="macro-label">Calorie Delta</span>
+          <span id="rep-delta-cal" class="macro-val font-bold"></span>
+        </div>
+        <div class="macro-chip">
+          <span class="macro-label">Protein Delta</span>
+          <span id="rep-delta-prot" class="macro-val font-bold"></span>
+        </div>
+        <div class="macro-chip">
+          <span class="macro-label">Carbs Delta</span>
+          <span id="rep-delta-carbs" class="macro-val font-bold"></span>
+        </div>
+        <div class="macro-chip">
+          <span class="macro-label">Fat Delta</span>
+          <span id="rep-delta-fat" class="macro-val font-bold"></span>
+        </div>
+      </div>
+
+      <div class="flex justify-end">
+        <button onclick="document.getElementById('replacement-modal').classList.add('hidden')"
+          class="btn btn-primary btn-sm">Accept & Update Plan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="app-toast" class="app-toast hidden"></div>
+
+  <!-- Academic & Health Disclaimer Footer -->
+  <footer class="mt-8 py-6 border-t border-gray-800 text-center text-xs text-muted">
+    <div class="max-w-4xl mx-auto px-4">
+      <p class="mb-2">
+        <strong>Academic Disclaimer:</strong> This application provides educational nutrition recommendations and
+        dietary estimations. It is not a substitute for professional medical, clinical, or dietary advice. Consult a
+        qualified healthcare professional before undertaking major dietary interventions.
+      </p>
+      <p>
+        Built on verified nutritional foundations (USDA FoodData Central & Indian Food Composition Tables) • 100%
+        Client-Side Architecture.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Standalone App Bundle (Works seamlessly on both file:// and http://) -->
+  <script src="./src/bundle.js"></script>
+</body>
+
+</html>
