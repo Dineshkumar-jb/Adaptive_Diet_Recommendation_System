@@ -18,6 +18,24 @@ The entire application runs **100% locally in the browser** using modern ES6+ mo
 
 ---
 
+## 🖼️ System Screenshots & Visual Outputs
+
+All project screenshots, evaluation figures, and interface output images are stored in the [`screenshots/`](screenshots/) directory:
+
+| 01. NutriAdaptive AI Dashboard & Meal Schedule | 02. Smart Macro-Preserving Meal Replacement |
+| :---: | :---: |
+| ![NutriAdaptive AI Dashboard](screenshots/01_dashboard_and_meal_schedule.jpg) | ![Smart Meal Replacement](screenshots/04_smart_meal_replacement_modal.jpg) |
+
+| 03. Anthropometric & Goal Setup | 04. Allergy Constraints & Dietary Preferences |
+| :---: | :---: |
+| ![Anthropometrics Profile Setup](screenshots/02_user_profile_and_anthropometrics.jpg) | ![Allergy & Safety Constraints](screenshots/03_allergy_safety_and_preferences.jpg) |
+
+| 05. Benchmark Evaluation Chart (Baseline KNN vs. Proposed Adaptive Hybrid) |
+| :---: |
+| ![Benchmark Chart](screenshots/05_baseline_vs_proposed_benchmark.jpg) |
+
+---
+
 ## 🏛️ System Architecture
 
 ```
