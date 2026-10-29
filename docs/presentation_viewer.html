@@ -264,7 +264,7 @@
     </div>
     <div class="nav-controls">
       <button id="prevBtn" onclick="prevSlide()">← Prev</button>
-      <span class="slide-counter" id="slideNum">01 / 16</span>
+      <span class="slide-counter" id="slideNum">01 / 17</span>
       <button id="nextBtn" onclick="nextSlide()">Next →</button>
       <button onclick="toggleFullScreen()">⛶ Fullscreen</button>
     </div>
@@ -291,10 +291,10 @@
             <p style="font-size:15px; color:var(--text-muted); max-width:700px; margin-bottom:30px; line-height:1.6;">
               An adaptive client-side hybrid recommendation framework that dynamically computes anthropometric targets, guarantees zero-tolerance allergen safety, adapts to real-time taste feedback, and prevents meal fatigue.
             </p>
-            <div style="display:flex; gap:30px; border-top:1px solid var(--border); padding-top:20px;">
-              <div><span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); display:block;">Architecture</span><strong style="color:var(--text)">100% Client-Side Web Execution</strong></div>
-              <div><span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); display:block;">Domain</span><strong style="color:var(--text)">AI & Nutritional Informatics</strong></div>
-              <div><span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); display:block;">Academic Year</span><strong style="color:var(--text)">2026 – 2027</strong></div>
+            <div style="display:flex; gap:24px; border-top:1px solid var(--border); padding-top:18px; flex-wrap:wrap;">
+              <div><span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); display:block;">Under Guidance Of</span><strong style="color:var(--accent)">Vignashwari</strong></div>
+              <div><span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); display:block;">Project Team</span><strong style="color:var(--text)">Dinesh Kumar J B &middot; Bharath Vikraman &middot; Sanjay K</strong></div>
+              <div><span style="font-size:11px; text-transform:uppercase; color:var(--text-muted); display:block;">Architecture</span><strong style="color:var(--text)">100% Client-Side Web</strong></div>
             </div>
           </div>
         `
@@ -613,6 +613,24 @@
             </table>
             <div style="font-size:12px; color:var(--text-muted); background:rgba(56,189,248,0.06); padding:10px 14px; border-radius:8px; border:1px solid rgba(56,189,248,0.2);">
               <strong>Key Finding:</strong> Decoupled Boolean filtering eliminated all allergen failures, while Jaccard diversity penalties doubled plan variety.
+            </div>
+          </div>
+        `
+      },
+      {
+        pill: "Chapter 4: Results & Verification",
+        title: "Section 4.3: Screenshots, Outputs & Figures",
+        render: () => `
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; width:100%;">
+            <div class="card" style="display:flex; flex-direction:column; padding:12px;">
+              <div class="card-title" style="font-size:13px; margin-bottom:6px;">Figure 4.3: NutriAdaptive Dashboard Output</div>
+              <img src="images/figure_4_3_ui_dashboard.jpg" style="width:100%; border-radius:6px; border:1px solid var(--border);" alt="NutriAdaptive UI Dashboard" />
+              <p style="font-size:11px; color:var(--text-muted); margin-top:6px;">Live BMI/TDEE metrics, circadian meal schedule, match scores, XAI rationales, and progress meters.</p>
+            </div>
+            <div class="card highlight" style="display:flex; flex-direction:column; padding:12px;">
+              <div class="card-title" style="font-size:13px; margin-bottom:6px;">Figure 4.4: Smart Meal Replacement Modal Output</div>
+              <img src="images/figure_4_4_smart_replacement.jpg" style="width:100%; border-radius:6px; border:1px solid var(--border);" alt="Smart Replacement Output" />
+              <p style="font-size:11px; color:var(--text-muted); margin-top:6px;">Constrained 4D Euclidean vector search preserves macro balance with minimal delta (&Delta; = -10 kcal, +2g Protein).</p>
             </div>
           </div>
         `
